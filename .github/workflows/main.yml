@@ -1,4 +1,4 @@
-name: dotnet package
+name: build and release
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: dotnet publish ./src/mtga-tracker-daemon -r win-x64 --self-contained
 
       - name: Zip the Build
-        run: 7z a -tzip "mtga-tracker-daemon-${{ runner.os }}.zip" "./src/mtga-tracker-daemon/bin/Debug/net5.0/win-x64/publish"
+        run: 7z a -tzip "mtga-tracker-daemon-${{ runner.os }}.zip" -C src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/ publish/
 
       - name: Create Release
         id: create_release
@@ -33,8 +33,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.run_number }}-${{ runner.os }}
-          release_name: Release ${{ github.run_number }}-${{ runner.os }}
-          body: ${{ matrix.os }} v${{ github.run_number }}
+          release_name: Release ${{ github.run_number }} ${{ runner.os }}
+          body: ${{ runner.os }} v${{ github.run_number }}
           draft: false
           prerelease: false
 
@@ -73,8 +73,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.run_number }}-${{ runner.os }}
-          release_name: Release ${{ github.run_number }}-${{ runner.os }}
-          body: ${{ matrix.os }} v${{ github.run_number }}
+          release_name: Release ${{ github.run_number }} ${{ runner.os }}
+          body: ${{ runner.os }} v${{ github.run_number }}
           draft: false
           prerelease: false
 
