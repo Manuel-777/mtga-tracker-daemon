@@ -62,6 +62,9 @@ jobs:
 
       - name: Build
         run: dotnet publish ./src/mtga-tracker-daemon -r linux-x64 --self-contained
+
+      - name: Add deploy artifacts
+        run: mv -v deploy/linux/* src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/publish
         
       - name: Zip the Build
         run: tar czvf "mtga-tracker-daemon-${{ runner.os }}.tar.gz" -C src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/ publish/
