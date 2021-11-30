@@ -65,6 +65,7 @@ jobs:
 
       - name: Add deploy artifacts
         run: |
+          mkdir deploy/linux/bin
           mv -v src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/publish/* deploy/linux/bin
         
       - name: Zip the Build
