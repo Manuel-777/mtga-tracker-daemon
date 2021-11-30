@@ -24,7 +24,7 @@ jobs:
         run: dotnet publish ./src/mtga-tracker-daemon -r win-x64 --self-contained
 
       - name: Zip the Build
-        run: 7z a -tzip "mtga-tracker-daemon-${{ runner.os }}.zip" -C src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/ publish/
+        run: 7z a -tzip "mtga-tracker-daemon-${{ runner.os }}.zip" "./src/mtga-tracker-daemon/bin/Debug/net5.0/win-x64/publish"
 
       - name: Create Release
         id: create_release
@@ -64,7 +64,7 @@ jobs:
         run: dotnet publish ./src/mtga-tracker-daemon -r linux-x64 --self-contained
         
       - name: Zip the Build
-        run: tar czvf "mtga-tracker-daemon-${{ runner.os }}.tar.gz" "src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/publish"
+        run: tar czvf "mtga-tracker-daemon-${{ runner.os }}.tar.gz" -C src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/ publish/
 
       - name: Create Release
         id: create_release
