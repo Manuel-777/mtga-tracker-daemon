@@ -65,11 +65,11 @@ jobs:
 
       - name: Add deploy artifacts
         run: |
-          mkdir deploy/linux/bin
+          mkdir -p deploy/linux/bin
           mv -v src/mtga-tracker-daemon/bin/Debug/net5.0/linux-x64/publish/* deploy/linux/bin
-        
+
       - name: Zip the Build
-        run: tar czvf "mtga-tracker-daemon-${{ runner.os }}.tar.gz" -C deploy/linux/ bin/
+        run: tar czvf "mtga-tracker-daemon-${{ runner.os }}.tar.gz" deploy/linux
 
       - name: Create Release
         id: create_release
